@@ -13,12 +13,11 @@ except IndexError as e:
 
 
 
-ip_list_result = 'online_servers.txt'
 ip_list_source= open(ip_list_file, 'r')
 ips = ip_list_source.read()
 
-result = []
-
+result_online = []
+result_offline=[]
 
 
 with open(ip_list_file) as file:
@@ -29,13 +28,20 @@ with open(ip_list_file) as file:
         r = str(r.stdout)
         print(r)
         if(len(r)>0):
-            result.append(domain)
+            result_online.append(domain)
+        else:
+            result_offline.append(domain)
 
 
-print(result)
 
-with open(ip_list_result, 'w') as file:
-    for l in result: 
+with open('servers_online.txt', 'w') as file:
+    for l in result_online: 
+        file.write(l)
+        file.write('\n')
+
+
+with open('servers_offline.txt', 'w') as file:
+    for l in result_offline: 
         file.write(l)
         file.write('\n')
 
